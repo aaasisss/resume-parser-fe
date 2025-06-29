@@ -39,20 +39,23 @@ src/
 ## Setup
 
 1. Clone the repository:
+
    ```bash
    git clone <repository-url>
    cd resume-parser-fe
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Start the development server:
-   ```bash
+
+```bash
    npm run dev
-   ```
+```
 
 4. The application will be available at `http://localhost:5173`
 
@@ -66,6 +69,7 @@ src/
 ## Environment Setup
 
 Make sure you have:
+
 - Node.js (v16 or higher)
 - npm (v7 or higher)
 - A backend server running at `ws://localhost:8000` (or update the WebSocket URL in the code)
@@ -73,16 +77,19 @@ Make sure you have:
 ## Features by Screen
 
 ### Parse Resume
+
 - Upload PDF resumes
 - Choose between OpenAI and Local LLM processing
 - Real-time parsing status updates
 - Formatted JSON output display
 
 ### Match Job (Coming Soon)
+
 - Compare resumes against job descriptions
 - Get matching scores and recommendations
 
 ### Analyse Resume
+
 - Detailed resume analysis
 - Multiple analysis modes
 - Structured feedback on resume content
@@ -104,4 +111,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Built with [Vite](https://vitejs.dev/)
 - UI Components from [Ant Design](https://ant.design/)
 - Routing by [React Router](https://reactrouter.com/)
+
+```
+
 ```
