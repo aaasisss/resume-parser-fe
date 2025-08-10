@@ -1,6 +1,6 @@
 export const globalConfigs = {
-  apiUrl: "http://localhost:8000",
-  wsUrl: "ws://localhost:8000/ws",
+  apiUrl: "https://api.resume.aaasisss.net/",
+  wsUrl: "ws://api.resume.aaasisss.net/ws",
 };
 
 export const endpoints = {

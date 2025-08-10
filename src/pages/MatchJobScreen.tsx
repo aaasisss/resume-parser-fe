@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   Typography,
-  Select,
   Grid,
   Card,
   Form,
@@ -53,7 +52,7 @@ function MatchJobScreen() {
       return;
     }
 
-    const ws = new WebSocket("ws://localhost:8000/ws/match-job");
+    const ws = new WebSocket("ws://api.resume.aaasisss.net/ws/match-job");
 
     try {
       const base64File = await fileToBase64(file);
@@ -71,7 +70,6 @@ function MatchJobScreen() {
 
         try {
           const parsed = JSON.parse(msg);
-          console.log("Parsed message:", parsed);
 
           if (parsed.status === "done") {
             setResponse(parsed.result);
@@ -95,9 +93,7 @@ function MatchJobScreen() {
         setLoading(false);
       };
 
-      ws.onclose = () => {
-        console.log("WebSocket connection closed");
-      };
+      ws.onclose = () => {};
     } catch (error) {
       setError("An unknown error occurred.");
       setLoading(false);

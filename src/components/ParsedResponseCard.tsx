@@ -1,8 +1,12 @@
-import { Card, Typography } from "antd";
+import { Card, Typography, theme } from "antd";
 
 const { Title } = Typography;
 
 function ParsedResponseCard({ response }: { response: any }) {
+  const {
+    token: { colorFillTertiary, colorText, borderRadius, paddingSM, fontFamilyCode },
+  } = theme.useToken();
+
   let parsed = response;
   if (typeof response === "string") {
     const match = response.match(/```(?:json)?\n?([\s\S]*?)```/);
@@ -26,11 +30,14 @@ function ParsedResponseCard({ response }: { response: any }) {
       <pre
         style={{
           textAlign: "left",
-          background: "#f4f4f4",
-          padding: "1em",
+          background: colorFillTertiary,
+          color: colorText,
+          padding: paddingSM,
           minHeight: 200,
           margin: 0,
           overflow: "auto",
+          borderRadius: borderRadius,
+          fontFamily: fontFamilyCode,
         }}
       >
         {typeof parsed === "object"

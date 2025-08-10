@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   Typography,
-  Select,
   Grid,
   Card,
   Form,
@@ -18,7 +17,6 @@ import SelectMode from "../components/SelectMode";
 import { fileToBase64 } from "../utils/file";
 
 const { Title } = Typography;
-const { Option } = Select;
 
 function ParseResumeScreen() {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -53,7 +51,7 @@ function ParseResumeScreen() {
     }
     const base64File = await fileToBase64(file);
 
-    const url = "http://localhost:8000/parse-resume";
+    const url = "https://api.resume.aaasisss.net/parse-resume";
     try {
       const res = await axios.post(
         url,
@@ -73,7 +71,7 @@ function ParseResumeScreen() {
       let parsedResume;
       try {
         parsedResume = data.result;
-        console.log("Parsed Resume JSON:", parsedResume);
+        setProgress("Complete");
       } catch (err) {
         console.error("Failed to parse resume JSON:", err);
         setError(

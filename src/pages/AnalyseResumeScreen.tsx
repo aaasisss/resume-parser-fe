@@ -50,7 +50,7 @@ function AnalyseResumeScreen() {
       return;
     }
 
-    const ws = new WebSocket("ws://localhost:8000/ws/analyze-visual");
+    const ws = new WebSocket("ws://api.resume.aaasisss.net/ws/analyze-visual");
 
     try {
       const base64File = await fileToBase64(file);

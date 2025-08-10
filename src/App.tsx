@@ -1,4 +1,4 @@
-import { Typography, Layout, Menu, theme } from "antd";
+import { Typography, Layout, Menu, theme, Switch, ConfigProvider } from "antd";
 import type { MenuProps } from "antd";
 import { Content } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
@@ -17,10 +17,18 @@ import {
 import ParseResumeScreen from "./pages/ParseResumeScreen";
 import MatchJobScreen from "./pages/MatchJobScreen";
 import AnalyseResumeScreen from "./pages/AnalyseResumeScreen";
+import { MoonFilled, SunFilled } from "@ant-design/icons";
+import { useEffect, useMemo, useState } from "react";
 
 const { Title } = Typography;
 
-function AppLayout() {
+function AppLayout({
+  isDark,
+  setIsDark,
+}: {
+  isDark: boolean;
+  setIsDark: (value: boolean) => void;
+}) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -68,12 +76,21 @@ function AppLayout() {
         padding: 0,
       }}
     >
-      <Sider breakpoint="lg" collapsedWidth="0">
-        <Title style={{ color: "white", textAlign: "center" }}>
+      <Sider breakpoint="lg" collapsedWidth="0" theme={isDark ? "dark" : "light"}>
+        <Title style={{ color: isDark ? "#fff" : undefined, textAlign: "center" }}>
           Resume Parser
         </Title>
+        <div style={{ padding: "0 16px 16px", display: "flex", gap: 8, alignItems: "center" }}>
+          <Switch
+            checked={isDark}
+            onChange={(checked) => setIsDark(checked)}
+            checkedChildren={<MoonFilled />}
+            unCheckedChildren={<SunFilled />}
+          />
+          <span style={{ color: isDark ? "#fff" : undefined }}>Dark mode</span>
+        </div>
         <Menu
-          theme="dark"
+          theme={isDark ? "dark" : "light"}
           selectedKeys={[selectedKey]}
           mode="inline"
           items={items}
@@ -107,10 +124,27 @@ function AppLayout() {
 }
 
 function App() {
+  const getInitialDark = () => {
+    const stored = localStorage.getItem("theme-mode");
+    if (stored === "dark") return true;
+    if (stored === "light") return false;
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  };
+
+  const [isDark, setIsDark] = useState<boolean>(getInitialDark);
+
+  useEffect(() => {
+    localStorage.setItem("theme-mode", isDark ? "dark" : "light");
+  }, [isDark]);
+
+  const algorithm = useMemo(() => (isDark ? theme.darkAlgorithm : theme.defaultAlgorithm), [isDark]);
+
   return (
-    <Router>
-      <AppLayout />
-    </Router>
+    <ConfigProvider theme={{ algorithm }}>
+      <Router>
+        <AppLayout isDark={isDark} setIsDark={setIsDark} />
+      </Router>
+    </ConfigProvider>
   );
 }
 
